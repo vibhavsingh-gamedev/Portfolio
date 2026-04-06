@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SinghSaab — Game Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --neon-green: #00ff88;
+  --neon-cyan: #00e5ff;
+  --neon-purple: #bf00ff;
+  --bg-void: #030508;
+  --bg-dark: #080c10;
+  --bg-card: #0c1117;
+  --bg-card-hover: #111822;
+  --border-dim: rgba(0,229,255,0.12);
+  --text-primary: #e8f4f8;
+  --text-secondary: #7a9bb0;
+  --text-dim: #3a5060;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Rajdhani', sans-serif;
+  background: var(--bg-void);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.07) 2px, rgba(0,0,0,0.07) 4px);
+  pointer-events: none; z-index: 9999;
+}
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none; z-index: 0;
+}
+.container { max-width: 1200px; margin: 0 auto; padding: 0 30px; position: relative; z-index: 1; }
+
+/* NAV */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index: 1000;
+  padding: 18px 0;
+  background: rgba(3,5,8,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-dim);
+}
+.nav-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 30px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.1rem; font-weight: 900;
+  color: var(--neon-green);
+  letter-spacing: 3px;
+  text-shadow: 0 0 20px rgba(0,255,136,0.5);
+  cursor: default;
+}
+.nav-links { display: flex; gap: 35px; list-style: none; }
+.nav-links a {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem; color: var(--text-secondary);
+  text-decoration: none; letter-spacing: 2px; text-transform: uppercase;
+  transition: color 0.3s; position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute;
+  bottom: -4px; left: 0; right: 0; height: 1px;
+  background: var(--neon-green);
+  transform: scaleX(0); transition: transform 0.3s;
+}
+.nav-links a:hover { color: var(--neon-green); }
+.nav-links a:hover::after { transform: scaleX(1); }
+.nav-links a.active { color: var(--neon-green); }
+.nav-links a.active::after { transform: scaleX(1); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center;
+  padding: 120px 30px 80px;
+  position: relative; overflow: hidden;
+}
+.hero-glow {
+  position: absolute; top:50%; left:50%;
+  transform: translate(-50%,-50%);
+  width:700px; height:700px;
+  background: radial-gradient(ellipse, rgba(0,255,136,0.06) 0%, rgba(0,229,255,0.03) 40%, transparent 70%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-block;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.7rem; letter-spacing: 4px;
+  color: var(--neon-cyan);
+  border: 1px solid rgba(0,229,255,0.3);
+  padding: 7px 20px; border-radius: 2px;
+  margin-bottom: 30px;
+  position: relative; overflow: hidden;
+}
+.hero-badge::before {
+  content: ''; position: absolute;
+  top:0; left:-100%; width:100%; height:100%;
+  background: linear-gradient(90deg, transparent, rgba(0,229,255,0.1), transparent);
+  animation: sweep 3s ease-in-out infinite;
+}
+@keyframes sweep { 0%{left:-100%} 60%{left:100%} 100%{left:100%} }
+
+.hero-name {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(3rem,9vw,7rem);
+  font-weight: 900; line-height: 1;
+  letter-spacing: 6px; color: #fff;
+  text-shadow: 0 0 40px rgba(0,255,136,0.3), 0 0 80px rgba(0,255,136,0.15);
+  margin-bottom: 15px; position: relative;
+}
+.hero-name::before, .hero-name::after {
+  content: attr(data-text);
+  position: absolute; inset: 0;
+  font-family: 'Orbitron', monospace; font-weight: 900;
+}
+.hero-name::before {
+  color: var(--neon-cyan); opacity: 0;
+  clip-path: polygon(0 0,100% 0,100% 35%,0 35%);
+  animation: glitch-top 5s infinite;
+}
+.hero-name::after {
+  color: var(--neon-purple); opacity: 0;
+  clip-path: polygon(0 65%,100% 65%,100% 100%,0 100%);
+  animation: glitch-bot 5s infinite 0.1s;
+}
+@keyframes glitch-top {
+  0%,92%,100%{transform:translate(0,0);opacity:0}
+  93%{transform:translate(-3px,0);opacity:0.4}
+  95%{transform:translate(3px,0);opacity:0.4}
+  97%{transform:translate(0,0);opacity:0}
+}
+@keyframes glitch-bot {
+  0%,92%,100%{transform:translate(0,0);opacity:0}
+  93%{transform:translate(3px,0);opacity:0.3}
+  95%{transform:translate(-3px,0);opacity:0.3}
+  97%{transform:translate(0,0);opacity:0}
+}
+.cursor {
+  display: inline-block;
+  width: 4px; height: 0.85em;
+  background: var(--neon-green);
+  margin-left: 8px; vertical-align: middle;
+  animation: blink 1s step-end infinite;
+  box-shadow: 0 0 8px var(--neon-green);
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+.hero-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.3rem; font-weight: 400;
+  color: var(--text-secondary);
+  letter-spacing: 5px; text-transform: uppercase;
+  margin-bottom: 30px;
+}
+.hero-title span { color: var(--neon-green); }
+.hero-desc {
+  max-width: 620px; margin: 0 auto 50px;
+  font-size: 1.05rem; color: var(--text-secondary);
+  font-weight: 300; line-height: 1.8;
+}
+.hero-cta { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; margin-bottom:80px; }
+
+.btn-primary {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase;
+  text-decoration: none; display: inline-block;
+  padding: 14px 35px;
+  background: var(--neon-green); color: #000; font-weight: 700;
+  clip-path: polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+  transition: all 0.3s;
+  box-shadow: 0 0 20px rgba(0,255,136,0.3);
+}
+.btn-primary:hover { background:#fff; box-shadow:0 0 35px rgba(0,255,136,0.5); transform:translateY(-2px); }
+
+.btn-secondary {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase;
+  text-decoration: none; display: inline-block;
+  padding: 13px 35px;
+  color: var(--neon-cyan); border: 1px solid rgba(0,229,255,0.4);
+  background: transparent;
+  clip-path: polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+  transition: all 0.3s;
+}
+.btn-secondary:hover { background:rgba(0,229,255,0.08); border-color:var(--neon-cyan); box-shadow:0 0 20px rgba(0,229,255,0.2); transform:translateY(-2px); }
+
+.scroll-hint { display:flex; flex-direction:column; align-items:center; gap:8px; animation:sbounce 2s infinite; }
+.scroll-hint span { font-family:'Share Tech Mono',monospace; font-size:0.65rem; letter-spacing:3px; color:var(--text-dim); }
+.scroll-line { width:1px; height:50px; background:linear-gradient(to bottom,var(--neon-green),transparent); }
+@keyframes sbounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+
+.loader-bar {
+  position:fixed; top:0; left:0;
+  height:2px; width:0%;
+  background:linear-gradient(90deg,var(--neon-green),var(--neon-cyan));
+  z-index:99999;
+  animation:load 1.5s ease-out forwards;
+  box-shadow:0 0 8px var(--neon-green);
+}
+@keyframes load { 0%{width:0%} 100%{width:100%} }
+
+/* STATS */
+.stats-bar {
+  padding:60px 0; position:relative; z-index:1;
+  background:var(--bg-void);
+  border-top:1px solid var(--border-dim);
+  border-bottom:1px solid var(--border-dim);
+}
+.stats-row { display:flex; justify-content:center; gap:80px; flex-wrap:wrap; }
+.stat-item { text-align:center; }
+.stat-number {
+  font-family:'Orbitron',monospace;
+  font-size:2.8rem; font-weight:900;
+  color:var(--neon-green);
+  text-shadow:0 0 20px rgba(0,255,136,0.4);
+  line-height:1; margin-bottom:8px;
+}
+.stat-label {
+  font-family:'Share Tech Mono',monospace;
+  font-size:0.65rem; letter-spacing:4px;
+  color:var(--text-dim); text-transform:uppercase;
+}
+
+/* SECTIONS */
+section { padding:100px 0; position:relative; z-index:1; }
+.section-header { margin-bottom:60px; }
+.section-eyebrow {
+  font-family:'Share Tech Mono',monospace;
+  font-size:0.7rem; letter-spacing:5px;
+  color:var(--neon-green); text-transform:uppercase;
+  margin-bottom:12px;
+  display:flex; align-items:center; gap:15px;
+}
+.section-eyebrow::before {
+  content:''; flex-shrink:0;
+  width:30px; height:1px;
+  background:var(--neon-green);
+  box-shadow:0 0 8px var(--neon-green);
+}
+.section-title {
+  font-family:'Orbitron',monospace;
+  font-size:clamp(1.8rem,4vw,2.8rem);
+  font-weight:700; color:#fff;
+  letter-spacing:2px; line-height:1.1;
+}
+.section-title span { color:var(--neon-green); }
+
+/* SKILLS */
+#skills { background:var(--bg-void); }
+.skills-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:2px; }
+.skill-card {
+  background:var(--bg-card);
+  padding:30px 28px;
+  position:relative; overflow:hidden;
+  transition:all 0.4s ease;
+  border:1px solid transparent;
+}
+.skill-card::before {
+  content:''; position:absolute;
+  top:0; left:0; width:3px; height:0;
+  background:var(--neon-green);
+  transition:height 0.4s ease;
+  box-shadow:0 0 10px var(--neon-green);
+}
+.skill-card:hover { background:var(--bg-card-hover); border-color:var(--border-dim); }
+.skill-card:hover::before { height:100%; }
+.skill-icon { font-size:1.8rem; margin-bottom:15px; display:block; }
+.skill-name {
+  font-family:'Orbitron',monospace;
+  font-size:0.85rem; font-weight:700;
+  color:var(--neon-cyan);
+  letter-spacing:2px; text-transform:uppercase;
+  margin-bottom:10px;
+}
+.skill-desc { font-size:0.95rem; color:var(--text-secondary); font-weight:300; line-height:1.7; }
+
+/* PROJECTS */
+#projects { background:var(--bg-dark); }
+.projects-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(360px,1fr)); gap:24px; }
+.project-card {
+  background:var(--bg-card);
+  border:1px solid var(--border-dim);
+  position:relative; overflow:hidden;
+  transition:all 0.4s ease;
+  display:flex; flex-direction:column;
+}
+.project-card:hover { transform:translateY(-6px); background:var(--bg-card-hover); border-color:rgba(0,255,136,0.35); }
+.corner-acc {
+  position:absolute; top:0; right:0;
+  width:0; height:0; border-style:solid;
+  border-width:0 24px 24px 0;
+  border-color:transparent var(--neon-green) transparent transparent;
+  z-index:2; opacity:0; transition:opacity 0.3s;
+}
+.project-card:hover .corner-acc { opacity:1; }
+
+.project-thumb {
+  width:100%; aspect-ratio:16/9;
+  background:#050b10;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden; position:relative;
+  border-bottom:1px solid var(--border-dim);
+}
+.project-thumb img {
+  width:100%; height:100%;
+  object-fit:contain;
+  transition:transform 0.5s ease;
+  filter:brightness(0.85);
+}
+.project-card:hover .project-thumb img { transform:scale(1.04); filter:brightness(1); }
+.thumb-ph {
+  font-family:'Orbitron',monospace;
+  font-size:1.1rem; color:rgba(0,229,255,0.12);
+  user-select:none; letter-spacing:3px;
+  text-align:center; padding:10px;
+  display:none;
+}
+.project-badge {
+  position:absolute; top:14px; left:14px;
+  font-family:'Share Tech Mono',monospace;
+  font-size:0.6rem; letter-spacing:2px;
+  padding:4px 10px;
+  background:rgba(0,0,0,0.75);
+  border:1px solid rgba(0,229,255,0.3);
+  color:var(--neon-cyan); text-transform:uppercase;
+  z-index:1;
+}
+
+.project-body { padding:24px; flex:1; display:flex; flex-direction:column; }
+.proj-title-row {
+  display:flex; align-items:flex-start;
+  justify-content:space-between;
+  margin-bottom:6px; gap:10px;
+}
+.proj-title {
+  font-family:'Orbitron',monospace;
+  font-size:1rem; font-weight:700;
+  color:#fff; letter-spacing:1px; line-height:1.3;
+}
+.proj-engine {
+  font-family:'Share Tech Mono',monospace;
+  font-size:0.65rem; color:var(--neon-green);
+  letter-spacing:2px; white-space:nowrap; padding-top:3px;
+}
+.proj-desc {
+  font-size:0.9rem; color:var(--text-secondary);
+  margin-bottom:16px; line-height:1.7; font-weight:300;
+}
+.proj-feats { list-style:none; margin-bottom:20px; flex:1; }
+.proj-feats li {
+  font-size:0.85rem; color:#607890;
+  padding:5px 0 5px 18px;
+  position:relative; line-height:1.5;
+}
+.proj-feats li::before {
+  content:'▸'; position:absolute; left:0;
+  color:var(--neon-green); font-size:0.7rem;
+}
+.tech-stack { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:20px; }
+.tech-tag {
+  font-family:'Share Tech Mono',monospace;
+  font-size:0.6rem; letter-spacing:1.5px;
+  padding:4px 10px;
+  border:1px solid rgba(0,229,255,0.2);
+  color:var(--neon-cyan); text-transform:uppercase;
+  background:rgba(0,229,255,0.04);
+  transition:all 0.2s;
+}
+.tech-tag:hover { border-color:var(--neon-cyan); background:rgba(0,229,255,0.1); }
+.proj-cta { margin-top:auto; }
+.btn-watch {
+  font-family:'Share Tech Mono',monospace;
+  font-size:0.7rem; letter-spacing:2px; text-transform:uppercase;
+  text-decoration:none;
+  padding:10px 22px;
+  border:1px solid rgba(0,255,136,0.4);
+  color:var(--neon-green);
+  background:rgba(0,255,136,0.04);
+  transition:all 0.3s;
+  display:inline-flex; align-items:center; gap:7px;
+}
+.btn-watch:hover { background:rgba(0,255,136,0.12); border-color:var(--neon-green); box-shadow:0 0 15px rgba(0,255,136,0.2); }
+.play-icon {
+  width:0; height:0; border-style:solid;
+  border-width:4px 0 4px 7px;
+  border-color:transparent transparent transparent var(--neon-green);
+}
+
+/* CONTACT */
+#contact { background:var(--bg-dark); }
+.contact-card {
+  max-width:700px; margin:0 auto;
+  background:var(--bg-card);
+  border:1px solid var(--border-dim);
+  padding:60px 50px; text-align:center;
+  position:relative; overflow:hidden;
+}
+.contact-card::before {
+  content:''; position:absolute;
+  top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,transparent,var(--neon-green),var(--neon-cyan),transparent);
+}
+.contact-tag {
+  font-family:'Share Tech Mono',monospace;
+  font-size:0.7rem; letter-spacing:5px;
+  color:var(--neon-green); text-transform:uppercase; margin-bottom:20px;
+}
+.contact-heading {
+  font-family:'Orbitron',monospace;
+  font-size:1.8rem; font-weight:700;
+  color:#fff; margin-bottom:15px; letter-spacing:2px;
+}
+.contact-sub { color:var(--text-secondary); font-size:1rem; margin-bottom:40px; font-weight:300; }
+.contact-links { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+.c-link {
+  font-family:'Share Tech Mono',monospace;
+  font-size:0.75rem; letter-spacing:2px; text-decoration:none;
+  padding:12px 30px;
+  border:1px solid rgba(0,229,255,0.3);
+  color:var(--neon-cyan); text-transform:uppercase;
+  transition:all 0.3s; display:inline-block;
+  clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+}
+.c-link:hover { background:rgba(0,229,255,0.08); border-color:var(--neon-cyan); box-shadow:0 0 20px rgba(0,229,255,0.2); transform:translateY(-2px); }
+.c-link.pri { background:var(--neon-green); border-color:var(--neon-green); color:#000; font-weight:700; }
+.c-link.pri:hover { background:#fff; border-color:#fff; box-shadow:0 0 30px rgba(0,255,136,0.4); }
+
+footer {
+  padding:30px; text-align:center;
+  border-top:1px solid var(--border-dim);
+  position:relative; z-index:1;
+}
+footer p { font-family:'Share Tech Mono',monospace; font-size:0.65rem; letter-spacing:3px; color:var(--text-dim); text-transform:uppercase; }
+footer span { color:var(--neon-green); }
+.divider { height:1px; background:linear-gradient(90deg,transparent,var(--border-dim),transparent); position:relative; z-index:1; }
+
+/* SCROLL REVEAL */
+.reveal { opacity:0; transform:translateY(28px); transition:opacity 0.65s ease, transform 0.65s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+.rg .reveal:nth-child(1){transition-delay:0.05s}
+.rg .reveal:nth-child(2){transition-delay:0.10s}
+.rg .reveal:nth-child(3){transition-delay:0.15s}
+.rg .reveal:nth-child(4){transition-delay:0.20s}
+.rg .reveal:nth-child(5){transition-delay:0.25s}
+.rg .reveal:nth-child(6){transition-delay:0.30s}
+.rg .reveal:nth-child(7){transition-delay:0.35s}
+.rg .reveal:nth-child(8){transition-delay:0.40s}
+.rg .reveal:nth-child(9){transition-delay:0.45s}
+
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hero-name{font-size:2.5rem;letter-spacing:3px}
+  .projects-grid{grid-template-columns:1fr}
+  .skills-grid{grid-template-columns:1fr 1fr}
+  .stats-row{gap:40px}
+  .stat-number{font-size:2rem}
+  .contact-card{padding:40px 25px}
+  .hero-cta{flex-direction:column;align-items:center}
+}
+@media(max-width:480px){
+  .skills-grid{grid-template-columns:1fr}
+  .section-title{font-size:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<div class="loader-bar"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">SINGHSAAB</div>
+    <ul class="nav-links">
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="container">
+    <div class="hero-badge">UNITY &amp; C# &nbsp;&middot;&nbsp; GAME DEVELOPER &nbsp;&middot;&nbsp; INDIA</div>
+    <h1 class="hero-name" data-text="SINGHSAAB">SINGHSAAB<span class="cursor"></span></h1>
+    <p class="hero-title">Building <span>worlds</span> with code</p>
+    <p class="hero-desc">Enthusiastic game developer crafting engaging 2D &amp; 3D experiences in Unity. From hyper-casual to full platformers &mdash; I focus on gameplay feel, clean architecture, and polish.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">VIEW PROJECTS</a>
+      <a href="#contact" class="btn-secondary">HIRE ME</a>
+    </div>
+    <div class="scroll-hint">
+      <span>SCROLL</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-row">
+      <div class="stat-item"><div class="stat-number">8+</div><div class="stat-label">Games Built</div></div>
+      <div class="stat-item"><div class="stat-number">2D/3D</div><div class="stat-label">Experience</div></div>
+      <div class="stat-item"><div class="stat-number">Unity 6</div><div class="stat-label">Engine</div></div>
+      <div class="stat-item"><div class="stat-number">C#</div><div class="stat-label">Language</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Technical Arsenal</div>
+      <h2 class="section-title">Core <span>Skills</span></h2>
+    </div>
+    <div class="skills-grid rg">
+
+      <div class="skill-card reveal">
+        <span class="skill-icon">&#9881;&#65039;</span>
+        <div class="skill-name">Game Engine</div>
+        <div class="skill-desc">Unity (2D &amp; 3D) &mdash; Unity 6 proficient with full pipeline knowledge from scene setup to build</div>
+      </div>
+
+      <div class="skill-card reveal">
+        <span class="skill-icon">&#128187;</span>
+        <div class="skill-name">Programming</div>
+        <div class="skill-desc">C#, OOP, Coroutines, Physics System, Event-driven architecture</div>
+      </div>
+
+      <div class="skill-card reveal">
+        <span class="skill-icon">&#127918;</span>
+        <div class="skill-name">Game Design</div>
+        <div class="skill-desc">Player Controls, Enemy AI, Animation Handling, Scene Management, Game Feel</div>
+      </div>
+
+      <div class="skill-card reveal">
+        <span class="skill-icon">&#128444;&#65039;</span>
+        <div class="skill-name">UI / UX</div>
+        <div class="skill-desc">Game Over UI, Score Systems, Canvas Scaler, Smooth Transitions, Mobile UI</div>
+      </div>
+
+      <div class="skill-card reveal">
+        <span class="skill-icon">&#9889;</span>
+        <div class="skill-name">Optimization</div>
+        <div class="skill-desc">Object Pooling, Memory Management, Performance-focused development</div>
+      </div>
+
+      <div class="skill-card reveal">
+        <span class="skill-icon">&#128296;</span>
+        <div class="skill-name">Version Control</div>
+        <div class="skill-desc">Git &amp; GitHub &mdash; clean commits, project management, collaboration ready</div>
+      </div>
+
+      <div class="skill-card reveal">
+        <span class="skill-icon">&#128161;</span>
+        <div class="skill-name">Concepts</div>
+        <div class="skill-desc">Object Pooling, Event Systems, Inheritance, Game Loop Logic, State Machines</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Portfolio</div>
+      <h2 class="section-title">Game <span>Projects</span></h2>
+    </div>
+    <div class="projects-grid rg">
+
+      <!-- 2D Platformer -->
+      <div class="project-card reveal">
+        <div class="corner-acc"></div>
+        <div class="project-thumb">
+          <img src="images/platformer.png" alt="2D Platformer"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="thumb-ph">PLATFORMER</div>
+          <div class="project-badge">2D &middot; Action</div>
+        </div>
+        <div class="project-body">
+          <div class="proj-title-row">
+            <h3 class="proj-title">2D Platformer</h3>
+            <span class="proj-engine">Unity 6 / C#</span>
+          </div>
+          <p class="proj-desc">A complete 2D platformer built from scratch with polished player mechanics, intelligent enemies, and responsive controls.</p>
+          <ul class="proj-feats">
+            <li>Player movement, attack &amp; death animations with physics control</li>
+            <li>Enemy AI with detection, attack logic, and fade-out death effects</li>
+            <li>Game Over system that dynamically freezes gameplay on player death</li>
+            <li>Event-based architecture for clean, scalable logic</li>
+          </ul>
+          <div class="tech-stack">
+            <span class="tech-tag">Unity 6</span><span class="tech-tag">C#</span>
+            <span class="tech-tag">2D</span><span class="tech-tag">OOP</span><span class="tech-tag">Animation</span>
+          </div>
+          <div class="proj-cta">
+            <a href="#" class="btn-watch"><span class="play-icon"></span>Watch Gameplay</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3D Endless Runner -->
+      <div class="project-card reveal">
+        <div class="corner-acc"></div>
+        <div class="project-thumb">
+          <img src="images/runner.png" alt="3D Endless Runner"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="thumb-ph">3D RUNNER</div>
+          <div class="project-badge">3D &middot; Runner</div>
+        </div>
+        <div class="project-body">
+          <div class="proj-title-row">
+            <h3 class="proj-title">3D Endless Runner</h3>
+            <span class="proj-engine">Unity 6 / C#</span>
+          </div>
+          <p class="proj-desc">A polished 3D endless runner with smooth movement, coin collection, obstacle spawning, and clean game management.</p>
+          <ul class="proj-feats">
+            <li>Smooth movement, obstacle &amp; coin spawning, real-time score</li>
+            <li>Object pooling for ground and collectibles &mdash; performance first</li>
+            <li>Dynamic camera follow with animated character controller</li>
+            <li>Restart &amp; quit UI with basic game management system</li>
+          </ul>
+          <div class="tech-stack">
+            <span class="tech-tag">Unity 6</span><span class="tech-tag">C#</span>
+            <span class="tech-tag">3D</span><span class="tech-tag">Pooling</span><span class="tech-tag">Optimization</span>
+          </div>
+          <div class="proj-cta">
+            <a href="#" class="btn-watch"><span class="play-icon"></span>Watch Gameplay</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tic Tac Toe -->
+      <div class="project-card reveal">
+        <div class="corner-acc"></div>
+        <div class="project-thumb">
+          <img src="images/tictactoe.png" alt="Tic Tac Toe"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="thumb-ph">TIC TAC TOE</div>
+          <div class="project-badge">2D &middot; Multiplayer</div>
+        </div>
+        <div class="project-body">
+          <div class="proj-title-row">
+            <h3 class="proj-title">Tic Tac Toe</h3>
+            <span class="proj-engine">Unity 6 / C#</span>
+          </div>
+          <p class="proj-desc">A complete two-player Tic Tac Toe with clean gameplay logic, smooth UI, and modular architecture.</p>
+          <ul class="proj-feats">
+            <li>Interactive 3x3 grid with intuitive turn-based flow</li>
+            <li>Fast win-condition and draw detection via array scanning</li>
+            <li>Modular: Board Manager, Game Controller, UI Manager</li>
+            <li>Minimal modern UI optimized for PC and mobile</li>
+          </ul>
+          <div class="tech-stack">
+            <span class="tech-tag">Unity 6</span><span class="tech-tag">C#</span>
+            <span class="tech-tag">2D</span><span class="tech-tag">UI/UX</span><span class="tech-tag">Clean Architecture</span>
+          </div>
+          <div class="proj-cta">
+            <a href="#" class="btn-watch"><span class="play-icon"></span>Watch Gameplay</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Car Racing -->
+      <div class="project-card reveal">
+        <div class="corner-acc"></div>
+        <div class="project-thumb">
+          <img src="images/carracing.png" alt="Car Racing"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="thumb-ph">CAR RACING</div>
+          <div class="project-badge">3D &middot; Racing</div>
+        </div>
+        <div class="project-body">
+          <div class="proj-title-row">
+            <h3 class="proj-title">Simple Car Racing</h3>
+            <span class="proj-engine">Unity 6 / C#</span>
+          </div>
+          <p class="proj-desc">A complete 3D car racing game with realistic vehicle physics, dynamic traffic, and comprehensive HUD.</p>
+          <ul class="proj-feats">
+            <li>Realistic wheel colliders for authentic driving feel</li>
+            <li>Dynamic traffic spawning &amp; environment object pooling</li>
+            <li>Real-time HUD: score, speed, and distance display</li>
+            <li>Main menu, garage, collision detection &amp; game over flow</li>
+          </ul>
+          <div class="tech-stack">
+            <span class="tech-tag">Unity 6</span><span class="tech-tag">C#</span>
+            <span class="tech-tag">3D</span><span class="tech-tag">Physics</span><span class="tech-tag">UI/UX</span>
+          </div>
+          <div class="proj-cta">
+            <a href="#" class="btn-watch"><span class="play-icon"></span>Watch Gameplay</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stack Tower -->
+      <div class="project-card reveal">
+        <div class="corner-acc"></div>
+        <div class="project-thumb">
+          <img src="images/stacktower.png" alt="Stack Tower"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="thumb-ph">STACK TOWER</div>
+          <div class="project-badge">3D &middot; Hyper-Casual</div>
+        </div>
+        <div class="project-body">
+          <div class="proj-title-row">
+            <h3 class="proj-title">Stack Tower</h3>
+            <span class="proj-engine">Unity 6 / C#</span>
+          </div>
+          <p class="proj-desc">A hyper-casual Stack Tower with one-tap gameplay, dynamic block slicing, and polished gradient visuals.</p>
+          <ul class="proj-feats">
+            <li>Smooth block movement with tap-to-drop mechanics</li>
+            <li>Dynamic slicing system for precision-based scoring</li>
+            <li>Gradient color transitions tied to tower height</li>
+            <li>Height-based camera follow as tower grows</li>
+          </ul>
+          <div class="tech-stack">
+            <span class="tech-tag">Unity 6</span><span class="tech-tag">C#</span>
+            <span class="tech-tag">Hyper-Casual</span><span class="tech-tag">3D</span><span class="tech-tag">Physics</span>
+          </div>
+          <div class="proj-cta">
+            <a href="#" class="btn-watch"><span class="play-icon"></span>Watch Gameplay</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Helix Jump -->
+      <div class="project-card reveal">
+        <div class="corner-acc"></div>
+        <div class="project-thumb">
+          <img src="images/helixjump.png" alt="Helix Jump"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="thumb-ph">HELIX JUMP</div>
+          <div class="project-badge">3D &middot; Hyper-Casual</div>
+        </div>
+        <div class="project-body">
+          <div class="proj-title-row">
+            <h3 class="proj-title">Helix Jump</h3>
+            <span class="proj-engine">Unity 6 / C#</span>
+          </div>
+          <p class="proj-desc">A full 3D Helix Jump clone with smooth ball physics, high score persistence, audio, and level progression.</p>
+          <ul class="proj-feats">
+            <li>Realistic ball physics with touch/mouse controls</li>
+            <li>Splash destruction effect via object pooling</li>
+            <li>High score system with persistent data storage</li>
+            <li>3 levels with dynamic colors &amp; audio system</li>
+          </ul>
+          <div class="tech-stack">
+            <span class="tech-tag">Unity 6</span><span class="tech-tag">C#</span>
+            <span class="tech-tag">3D</span><span class="tech-tag">Optimization</span><span class="tech-tag">Audio</span>
+          </div>
+          <div class="proj-cta">
+            <a href="#" class="btn-watch"><span class="play-icon"></span>Watch Gameplay</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CarDash -->
+      <div class="project-card reveal">
+        <div class="corner-acc"></div>
+        <div class="project-thumb">
+          <img src="images/cardash.png" alt="CarDash"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="thumb-ph">CARDASH</div>
+          <div class="project-badge">Mobile &middot; Android</div>
+        </div>
+        <div class="project-body">
+          <div class="proj-title-row">
+            <h3 class="proj-title">CarDash</h3>
+            <span class="proj-engine">Unity 6 / C#</span>
+          </div>
+          <p class="proj-desc">A hyper-casual endless runner designed for Android &mdash; smooth controls, animated Game Over UI, and persistent high scores.</p>
+          <ul class="proj-feats">
+            <li>Infinite road with collision-based game over detection</li>
+            <li>Persistent high score saving across sessions</li>
+            <li>Animated Game Over UI with bounce &amp; scale effects</li>
+            <li>Canvas Scaler optimized for 1080x1920 mobile resolution</li>
+          </ul>
+          <div class="tech-stack">
+            <span class="tech-tag">Unity 6</span><span class="tech-tag">C#</span>
+            <span class="tech-tag">Mobile</span><span class="tech-tag">Android</span><span class="tech-tag">UI/UX</span>
+          </div>
+          <div class="proj-cta">
+            <a href="#" class="btn-watch"><span class="play-icon"></span>Watch Gameplay</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fruit Ninja -->
+      <div class="project-card reveal">
+        <div class="corner-acc"></div>
+        <div class="project-thumb">
+          <img src="images/fruitninja.png" alt="Fruit Ninja"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="thumb-ph">FRUIT NINJA</div>
+          <div class="project-badge">2D &middot; Hyper-Casual</div>
+        </div>
+        <div class="project-body">
+          <div class="proj-title-row">
+            <h3 class="proj-title">Fruit Ninja</h3>
+            <span class="proj-engine">Unity 6 / C#</span>
+          </div>
+          <p class="proj-desc">A hypercasual fruit-slicing game where players slash incoming fruits with a blade trail while avoiding bombs &mdash; built to sharpen core Unity skills.</p>
+          <ul class="proj-feats">
+            <li>Fruit spawning system with 5 unique fruit types flying onto screen</li>
+            <li>Blade trail mechanic &mdash; player slices fruits by swiping across them</li>
+            <li>Bomb logic: touching bomb triggers fade screen, 1-sec delay, then Game Over</li>
+            <li>Particle system on fruit slice for satisfying visual feedback</li>
+            <li>Score system that increments with every successful fruit cut</li>
+            <li>Main Menu (Play &amp; Quit) and Game Over panel with Restart &amp; Main Menu buttons</li>
+          </ul>
+          <div class="tech-stack">
+            <span class="tech-tag">Unity 6</span><span class="tech-tag">C#</span>
+            <span class="tech-tag">2D</span><span class="tech-tag">Particles</span>
+            <span class="tech-tag">Hyper-Casual</span><span class="tech-tag">UI/UX</span>
+          </div>
+          <div class="proj-cta">
+            <a href="#" class="btn-watch"><span class="play-icon"></span>Watch Gameplay</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-card reveal">
+      <div class="contact-tag">Ready to collaborate</div>
+      <h2 class="contact-heading">LET'S BUILD<br>SOMETHING GREAT</h2>
+      <p class="contact-sub">Open to freelance projects, internships, and game dev opportunities. Let's create something unforgettable.</p>
+      <div class="contact-links">
+        <a href="mailto:singhsaab@gamedev.com" class="c-link pri">Get In Touch</a>
+        <a href="https://github.com/yourusername" target="_blank" rel="noopener" class="c-link">GitHub</a>
+        <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener" class="c-link">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2025 <span>SINGHSAAB</span> &nbsp;&middot;&nbsp; Built with Unity passion &amp; C# precision</p>
+</footer>
+
+<script>
+(function () {
+  // Scroll reveal
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var id = a.getAttribute('href');
+      if (!id || id === '#') return;
+      var target = document.querySelector(id);
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+
+  // Active nav highlight
+  var navAs = document.querySelectorAll('.nav-links a');
+  var secs = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', function () {
+    var y = window.scrollY + 130;
+    secs.forEach(function (s) {
+      var link = document.querySelector('.nav-links a[href="#' + s.id + '"]');
+      if (!link) return;
+      if (y >= s.offsetTop && y < s.offsetTop + s.offsetHeight) {
+        navAs.forEach(function (l) { l.classList.remove('active'); });
+        link.classList.add('active');
+      }
+    });
+  });
+}());
+</script>
+</body>
+</html>
