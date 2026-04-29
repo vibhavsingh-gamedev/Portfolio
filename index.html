@@ -221,7 +221,7 @@ nav {
   border-top:1px solid var(--border-dim);
   border-bottom:1px solid var(--border-dim);
 }
-.stats-row { display:flex; justify-content:center; gap:80px; flex-wrap:wrap; }
+.stats-row { display:flex; justify-content:center; gap:120px; flex-wrap:wrap; }
 .stat-item { text-align:center; }
 .stat-number {
   font-family:'Orbitron',monospace;
@@ -316,19 +316,51 @@ section { padding:100px 0; position:relative; z-index:1; }
   overflow:hidden; position:relative;
   border-bottom:1px solid var(--border-dim);
 }
-.project-thumb img {
+.project-thumb video {
   width:100%; height:100%;
-  object-fit:contain;
-  transition:transform 0.5s ease;
-  filter:brightness(0.85);
+  object-fit:cover;
+  display:block;
+  filter:brightness(0.75);
+  transition:filter 0.4s ease;
 }
-.project-card:hover .project-thumb img { transform:scale(1.04); filter:brightness(1); }
+.project-card:hover .project-thumb video { filter:brightness(1); }
+
+/* Play overlay — visible by default, fades on hover to reveal playing video */
+.vid-overlay {
+  position:absolute; inset:0;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:12px;
+  background:rgba(3,5,8,0.5);
+  transition:opacity 0.35s ease;
+  pointer-events:none; z-index:2;
+}
+.vid-overlay .big-play {
+  width:52px; height:52px;
+  border:2px solid rgba(0,255,136,0.8);
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 0 22px rgba(0,255,136,0.25);
+}
+.vid-overlay .big-play::after {
+  content:'';
+  width:0; height:0; border-style:solid;
+  border-width:9px 0 9px 16px;
+  border-color:transparent transparent transparent var(--neon-green);
+  margin-left:3px;
+}
+.vid-overlay .hover-hint {
+  font-family:'Share Tech Mono',monospace;
+  font-size:0.6rem; letter-spacing:3px;
+  color:rgba(255,255,255,0.45); text-transform:uppercase;
+}
+.project-card:hover .vid-overlay { opacity:0; }
+
 .thumb-ph {
   font-family:'Orbitron',monospace;
   font-size:1.1rem; color:rgba(0,229,255,0.12);
   user-select:none; letter-spacing:3px;
   text-align:center; padding:10px;
-  display:none;
+  display:none; position:absolute;
 }
 .project-badge {
   position:absolute; top:14px; left:14px;
@@ -382,24 +414,7 @@ section { padding:100px 0; position:relative; z-index:1; }
   transition:all 0.2s;
 }
 .tech-tag:hover { border-color:var(--neon-cyan); background:rgba(0,229,255,0.1); }
-.proj-cta { margin-top:auto; }
-.btn-watch {
-  font-family:'Share Tech Mono',monospace;
-  font-size:0.7rem; letter-spacing:2px; text-transform:uppercase;
-  text-decoration:none;
-  padding:10px 22px;
-  border:1px solid rgba(0,255,136,0.4);
-  color:var(--neon-green);
-  background:rgba(0,255,136,0.04);
-  transition:all 0.3s;
-  display:inline-flex; align-items:center; gap:7px;
-}
-.btn-watch:hover { background:rgba(0,255,136,0.12); border-color:var(--neon-green); box-shadow:0 0 15px rgba(0,255,136,0.2); }
-.play-icon {
-  width:0; height:0; border-style:solid;
-  border-width:4px 0 4px 7px;
-  border-color:transparent transparent transparent var(--neon-green);
-}
+
 
 /* CONTACT */
 #contact { background:var(--bg-dark); }
@@ -517,7 +532,6 @@ footer span { color:var(--neon-green); }
 <div class="stats-bar">
   <div class="container">
     <div class="stats-row">
-      <div class="stat-item"><div class="stat-number">8+</div><div class="stat-label">Games Built</div></div>
       <div class="stat-item"><div class="stat-number">2D/3D</div><div class="stat-label">Experience</div></div>
       <div class="stat-item"><div class="stat-number">Unity 6</div><div class="stat-label">Engine</div></div>
       <div class="stat-item"><div class="stat-number">C#</div><div class="stat-label">Language</div></div>
@@ -595,9 +609,10 @@ footer span { color:var(--neon-green); }
       <div class="project-card reveal">
         <div class="corner-acc"></div>
         <div class="project-thumb">
-          <img src="images/platformer.png" alt="2D Platformer"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <video src="videos/platformer.mp4" muted loop playsinline preload="none"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"></video>
           <div class="thumb-ph">PLATFORMER</div>
+          <div class="vid-overlay"><div class="big-play"></div><span class="hover-hint">Hover to play</span></div>
           <div class="project-badge">2D &middot; Action</div>
         </div>
         <div class="project-body">
@@ -616,9 +631,6 @@ footer span { color:var(--neon-green); }
             <span class="tech-tag">Unity 6</span><span class="tech-tag">C#</span>
             <span class="tech-tag">2D</span><span class="tech-tag">OOP</span><span class="tech-tag">Animation</span>
           </div>
-          <div class="proj-cta">
-            <a href="#" class="btn-watch"><span class="play-icon"></span>Watch Gameplay</a>
-          </div>
         </div>
       </div>
 
@@ -626,9 +638,10 @@ footer span { color:var(--neon-green); }
       <div class="project-card reveal">
         <div class="corner-acc"></div>
         <div class="project-thumb">
-          <img src="images/runner.png" alt="3D Endless Runner"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <video src="videos/runner.mp4" muted loop playsinline preload="none"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"></video>
           <div class="thumb-ph">3D RUNNER</div>
+          <div class="vid-overlay"><div class="big-play"></div><span class="hover-hint">Hover to play</span></div>
           <div class="project-badge">3D &middot; Runner</div>
         </div>
         <div class="project-body">
@@ -647,9 +660,6 @@ footer span { color:var(--neon-green); }
             <span class="tech-tag">Unity 6</span><span class="tech-tag">C#</span>
             <span class="tech-tag">3D</span><span class="tech-tag">Pooling</span><span class="tech-tag">Optimization</span>
           </div>
-          <div class="proj-cta">
-            <a href="#" class="btn-watch"><span class="play-icon"></span>Watch Gameplay</a>
-          </div>
         </div>
       </div>
 
@@ -657,9 +667,10 @@ footer span { color:var(--neon-green); }
       <div class="project-card reveal">
         <div class="corner-acc"></div>
         <div class="project-thumb">
-          <img src="images/tictactoe.png" alt="Tic Tac Toe"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <video src="videos/tictactoe.mp4" muted loop playsinline preload="none"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"></video>
           <div class="thumb-ph">TIC TAC TOE</div>
+          <div class="vid-overlay"><div class="big-play"></div><span class="hover-hint">Hover to play</span></div>
           <div class="project-badge">2D &middot; Multiplayer</div>
         </div>
         <div class="project-body">
@@ -678,9 +689,6 @@ footer span { color:var(--neon-green); }
             <span class="tech-tag">Unity 6</span><span class="tech-tag">C#</span>
             <span class="tech-tag">2D</span><span class="tech-tag">UI/UX</span><span class="tech-tag">Clean Architecture</span>
           </div>
-          <div class="proj-cta">
-            <a href="#" class="btn-watch"><span class="play-icon"></span>Watch Gameplay</a>
-          </div>
         </div>
       </div>
 
@@ -688,9 +696,10 @@ footer span { color:var(--neon-green); }
       <div class="project-card reveal">
         <div class="corner-acc"></div>
         <div class="project-thumb">
-          <img src="images/carracing.png" alt="Car Racing"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <video src="videos/carracing.mp4" muted loop playsinline preload="none"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"></video>
           <div class="thumb-ph">CAR RACING</div>
+          <div class="vid-overlay"><div class="big-play"></div><span class="hover-hint">Hover to play</span></div>
           <div class="project-badge">3D &middot; Racing</div>
         </div>
         <div class="project-body">
@@ -709,9 +718,6 @@ footer span { color:var(--neon-green); }
             <span class="tech-tag">Unity 6</span><span class="tech-tag">C#</span>
             <span class="tech-tag">3D</span><span class="tech-tag">Physics</span><span class="tech-tag">UI/UX</span>
           </div>
-          <div class="proj-cta">
-            <a href="#" class="btn-watch"><span class="play-icon"></span>Watch Gameplay</a>
-          </div>
         </div>
       </div>
 
@@ -719,9 +725,10 @@ footer span { color:var(--neon-green); }
       <div class="project-card reveal">
         <div class="corner-acc"></div>
         <div class="project-thumb">
-          <img src="images/stacktower.png" alt="Stack Tower"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <video src="videos/stacktower.mp4" muted loop playsinline preload="none"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"></video>
           <div class="thumb-ph">STACK TOWER</div>
+          <div class="vid-overlay"><div class="big-play"></div><span class="hover-hint">Hover to play</span></div>
           <div class="project-badge">3D &middot; Hyper-Casual</div>
         </div>
         <div class="project-body">
@@ -740,9 +747,6 @@ footer span { color:var(--neon-green); }
             <span class="tech-tag">Unity 6</span><span class="tech-tag">C#</span>
             <span class="tech-tag">Hyper-Casual</span><span class="tech-tag">3D</span><span class="tech-tag">Physics</span>
           </div>
-          <div class="proj-cta">
-            <a href="#" class="btn-watch"><span class="play-icon"></span>Watch Gameplay</a>
-          </div>
         </div>
       </div>
 
@@ -750,9 +754,10 @@ footer span { color:var(--neon-green); }
       <div class="project-card reveal">
         <div class="corner-acc"></div>
         <div class="project-thumb">
-          <img src="images/helixjump.png" alt="Helix Jump"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <video src="videos/helixjump.mp4" muted loop playsinline preload="none"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"></video>
           <div class="thumb-ph">HELIX JUMP</div>
+          <div class="vid-overlay"><div class="big-play"></div><span class="hover-hint">Hover to play</span></div>
           <div class="project-badge">3D &middot; Hyper-Casual</div>
         </div>
         <div class="project-body">
@@ -771,9 +776,6 @@ footer span { color:var(--neon-green); }
             <span class="tech-tag">Unity 6</span><span class="tech-tag">C#</span>
             <span class="tech-tag">3D</span><span class="tech-tag">Optimization</span><span class="tech-tag">Audio</span>
           </div>
-          <div class="proj-cta">
-            <a href="#" class="btn-watch"><span class="play-icon"></span>Watch Gameplay</a>
-          </div>
         </div>
       </div>
 
@@ -781,9 +783,10 @@ footer span { color:var(--neon-green); }
       <div class="project-card reveal">
         <div class="corner-acc"></div>
         <div class="project-thumb">
-          <img src="images/cardash.png" alt="CarDash"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <video src="videos/cardash.mp4" muted loop playsinline preload="none"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"></video>
           <div class="thumb-ph">CARDASH</div>
+          <div class="vid-overlay"><div class="big-play"></div><span class="hover-hint">Hover to play</span></div>
           <div class="project-badge">Mobile &middot; Android</div>
         </div>
         <div class="project-body">
@@ -802,9 +805,6 @@ footer span { color:var(--neon-green); }
             <span class="tech-tag">Unity 6</span><span class="tech-tag">C#</span>
             <span class="tech-tag">Mobile</span><span class="tech-tag">Android</span><span class="tech-tag">UI/UX</span>
           </div>
-          <div class="proj-cta">
-            <a href="#" class="btn-watch"><span class="play-icon"></span>Watch Gameplay</a>
-          </div>
         </div>
       </div>
 
@@ -812,9 +812,10 @@ footer span { color:var(--neon-green); }
       <div class="project-card reveal">
         <div class="corner-acc"></div>
         <div class="project-thumb">
-          <img src="images/fruitninja.png" alt="Fruit Ninja"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <video src="videos/fruitninja.mp4" muted loop playsinline preload="none"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"></video>
           <div class="thumb-ph">FRUIT NINJA</div>
+          <div class="vid-overlay"><div class="big-play"></div><span class="hover-hint">Hover to play</span></div>
           <div class="project-badge">2D &middot; Hyper-Casual</div>
         </div>
         <div class="project-body">
@@ -835,9 +836,6 @@ footer span { color:var(--neon-green); }
             <span class="tech-tag">Unity 6</span><span class="tech-tag">C#</span>
             <span class="tech-tag">2D</span><span class="tech-tag">Particles</span>
             <span class="tech-tag">Hyper-Casual</span><span class="tech-tag">UI/UX</span>
-          </div>
-          <div class="proj-cta">
-            <a href="#" class="btn-watch"><span class="play-icon"></span>Watch Gameplay</a>
           </div>
         </div>
       </div>
@@ -879,7 +877,6 @@ footer span { color:var(--neon-green); }
       }
     });
   }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
-
   document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
 
   // Smooth scroll
@@ -905,6 +902,24 @@ footer span { color:var(--neon-green); }
         link.classList.add('active');
       }
     });
+  });
+
+  // Hover-to-play videos
+  document.querySelectorAll('.project-card').forEach(function (card) {
+    var vid = card.querySelector('video');
+    if (!vid) return;
+    card.addEventListener('mouseenter', function () {
+      vid.play().catch(function(){});
+    });
+    card.addEventListener('mouseleave', function () {
+      vid.pause();
+      vid.currentTime = 0;
+    });
+    // Touch support for mobile
+    card.addEventListener('touchstart', function () {
+      if (vid.paused) { vid.play().catch(function(){}); }
+      else { vid.pause(); vid.currentTime = 0; }
+    }, { passive: true });
   });
 }());
 </script>
