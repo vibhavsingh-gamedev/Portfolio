@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vibhav Singh — Game Developer</title>
+<title>SinghSaab — Game Developer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -477,10 +477,173 @@ footer span { color:var(--neon-green); }
 .rg .reveal:nth-child(8){transition-delay:0.40s}
 .rg .reveal:nth-child(9){transition-delay:0.45s}
 
+/* WEB GAMES */
+#webgames { background: var(--bg-void); }
+
+.ai-disclaimer {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  color: #ffcc00;
+  border: 1px solid rgba(255,204,0,0.3);
+  background: rgba(255,204,0,0.05);
+  padding: 10px 20px;
+  border-radius: 2px;
+  margin-bottom: 50px;
+}
+.ai-disclaimer::before {
+  content: '⚡';
+  font-size: 0.85rem;
+}
+
+.webgames-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+  gap: 30px;
+}
+
+.wg-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-dim);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+.wg-card:hover {
+  border-color: rgba(255,204,0,0.35);
+  transform: translateY(-4px);
+}
+.wg-card .corner-acc-y {
+  position: absolute; top:0; right:0;
+  width:0; height:0; border-style:solid;
+  border-width: 0 24px 24px 0;
+  border-color: transparent #ffcc00 transparent transparent;
+  z-index: 2; opacity:0; transition: opacity 0.3s;
+}
+.wg-card:hover .corner-acc-y { opacity: 1; }
+
+.wg-iframe-wrap {
+  width: 100%;
+  aspect-ratio: 16/9;
+  position: relative;
+  background: #020408;
+  border-bottom: 1px solid var(--border-dim);
+  overflow: hidden;
+}
+.wg-iframe-wrap iframe {
+  width: 100%; height: 100%;
+  border: none;
+  display: block;
+}
+
+/* Click-to-play overlay */
+.wg-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(2,4,8,0.82);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  cursor: pointer;
+  transition: opacity 0.4s ease;
+  z-index: 3;
+}
+.wg-overlay.hidden { opacity: 0; pointer-events: none; }
+.wg-play-btn {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  border: 2px solid #ffcc00;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 20px rgba(255,204,0,0.3);
+  transition: all 0.3s;
+}
+.wg-overlay:hover .wg-play-btn {
+  background: rgba(255,204,0,0.1);
+  box-shadow: 0 0 35px rgba(255,204,0,0.5);
+  transform: scale(1.1);
+}
+.wg-play-icon {
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 10px 0 10px 18px;
+  border-color: transparent transparent transparent #ffcc00;
+  margin-left: 4px;
+}
+.wg-overlay-text {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  color: #ffcc00;
+  text-transform: uppercase;
+}
+
+.wg-body { padding: 20px 24px 24px; }
+.wg-title-row {
+  display: flex; align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 8px; gap: 10px;
+}
+.wg-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 1rem; font-weight: 700;
+  color: #fff; letter-spacing: 1px;
+}
+.wg-badge {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.6rem; letter-spacing: 2px;
+  padding: 4px 10px;
+  border: 1px solid rgba(255,204,0,0.4);
+  color: #ffcc00;
+  background: rgba(255,204,0,0.06);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.wg-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7; font-weight: 300;
+  margin-bottom: 14px;
+}
+.wg-link {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.68rem; letter-spacing: 2px;
+  text-decoration: none;
+  color: #ffcc00;
+  border-bottom: 1px solid rgba(255,204,0,0.3);
+  padding-bottom: 2px;
+  transition: border-color 0.2s;
+}
+.wg-link:hover { border-color: #ffcc00; }
+
+/* placeholder card for coming soon */
+.wg-coming {
+  background: var(--bg-card);
+  border: 1px dashed rgba(255,204,0,0.2);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  min-height: 260px; gap: 14px;
+  position: relative;
+}
+.wg-coming-icon {
+  font-size: 2rem;
+  opacity: 0.3;
+}
+.wg-coming-text {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.7rem; letter-spacing: 4px;
+  color: var(--text-dim); text-transform: uppercase;
+}
+
 @media(max-width:768px){
   .nav-links{display:none}
   .hero-name{font-size:2.5rem;letter-spacing:3px}
   .projects-grid{grid-template-columns:1fr}
+  .webgames-grid{grid-template-columns:1fr}
   .skills-grid{grid-template-columns:1fr 1fr}
   .stats-row{gap:40px}
   .stat-number{font-size:2rem}
@@ -504,6 +667,7 @@ footer span { color:var(--neon-green); }
     <ul class="nav-links">
       <li><a href="#skills">Skills</a></li>
       <li><a href="#projects">Projects</a></li>
+      <li><a href="#webgames">Web Games</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </div>
@@ -514,7 +678,7 @@ footer span { color:var(--neon-green); }
   <div class="hero-glow"></div>
   <div class="container">
     <div class="hero-badge">UNITY &amp; C# &nbsp;&middot;&nbsp; GAME DEVELOPER &nbsp;&middot;&nbsp; INDIA</div>
-    <h1 class="hero-name" data-text="VIBHAV SINGH">VIBHAV SINGH<span class="cursor"></span></h1>
+    <h1 class="hero-name" data-text="SINGHSAAB">SINGHSAAB<span class="cursor"></span></h1>
     <p class="hero-title">Building <span>worlds</span> with code</p>
     <p class="hero-desc">Enthusiastic game developer crafting engaging 2D &amp; 3D experiences in Unity. From hyper-casual to full platformers &mdash; I focus on gameplay feel, clean architecture, and polish.</p>
     <div class="hero-cta">
@@ -846,6 +1010,106 @@ footer span { color:var(--neon-green); }
 
 <div class="divider"></div>
 
+<!-- WEB GAMES -->
+<section id="webgames">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Experimental Builds</div>
+      <h2 class="section-title">Web <span>Games</span></h2>
+    </div>
+
+    <div class="ai-disclaimer reveal">
+      AI-ASSISTED BUILDS &nbsp;&middot;&nbsp; CREATED WITH AI TOOLS &nbsp;&middot;&nbsp; PLAYABLE IN BROWSER
+    </div>
+
+    <div class="webgames-grid rg">
+
+      <!-- Gravity Orbit -->
+      <div class="wg-card reveal">
+        <div class="corner-acc-y"></div>
+        <div class="wg-iframe-wrap">
+          <div class="wg-overlay" id="ov-1">
+            <div class="wg-play-btn"><div class="wg-play-icon"></div></div>
+            <div class="wg-overlay-text">Click to Play</div>
+          </div>
+          <iframe id="if-1" src="about:blank" data-src="https://gravityorbit.netlify.app/" allowfullscreen></iframe>
+        </div>
+        <div class="wg-body">
+          <div class="wg-title-row">
+            <h3 class="wg-title">Gravity Orbit</h3>
+            <span class="wg-badge">AI-Assisted</span>
+          </div>
+          <p class="wg-desc">A space survival game — navigate gravitational fields, collect scrap, and cause total destruction. Built with AI assistance and hosted on Netlify.</p>
+          <a href="https://gravityorbit.netlify.app/" target="_blank" rel="noopener" class="wg-link">&#8599; Open Full Screen</a>
+        </div>
+      </div>
+
+      <!-- Breakout -->
+      <div class="wg-card reveal">
+        <div class="corner-acc-y"></div>
+        <div class="wg-iframe-wrap">
+          <div class="wg-overlay" id="ov-2">
+            <div class="wg-play-btn"><div class="wg-play-icon"></div></div>
+            <div class="wg-overlay-text">Click to Play</div>
+          </div>
+          <iframe id="if-2" src="about:blank" data-src="https://breakoutgamee.netlify.app/" allowfullscreen></iframe>
+        </div>
+        <div class="wg-body">
+          <div class="wg-title-row">
+            <h3 class="wg-title">Breakout</h3>
+            <span class="wg-badge">AI-Assisted</span>
+          </div>
+          <p class="wg-desc">Classic brick breaker reimagined — control the paddle, smash through bricks, and clear every level. Built with AI assistance and hosted on Netlify.</p>
+          <a href="https://breakoutgamee.netlify.app/" target="_blank" rel="noopener" class="wg-link">&#8599; Open Full Screen</a>
+        </div>
+      </div>
+
+      <!-- Neon Snake -->
+      <div class="wg-card reveal">
+        <div class="corner-acc-y"></div>
+        <div class="wg-iframe-wrap">
+          <div class="wg-overlay" id="ov-3">
+            <div class="wg-play-btn"><div class="wg-play-icon"></div></div>
+            <div class="wg-overlay-text">Click to Play</div>
+          </div>
+          <iframe id="if-3" src="about:blank" data-src="https://neon-snakeee.netlify.app/" allowfullscreen></iframe>
+        </div>
+        <div class="wg-body">
+          <div class="wg-title-row">
+            <h3 class="wg-title">Neon Snake</h3>
+            <span class="wg-badge">AI-Assisted</span>
+          </div>
+          <p class="wg-desc">Snake with a neon glow-up — grow longer, dodge yourself, and chase the high score in this slick arcade revival. Built with AI assistance and hosted on Netlify.</p>
+          <a href="https://neon-snakeee.netlify.app/" target="_blank" rel="noopener" class="wg-link">&#8599; Open Full Screen</a>
+        </div>
+      </div>
+
+      <!-- Tetris -->
+      <div class="wg-card reveal">
+        <div class="corner-acc-y"></div>
+        <div class="wg-iframe-wrap">
+          <div class="wg-overlay" id="ov-4">
+            <div class="wg-play-btn"><div class="wg-play-icon"></div></div>
+            <div class="wg-overlay-text">Click to Play</div>
+          </div>
+          <iframe id="if-4" src="about:blank" data-src="https://tetrisgameee.netlify.app/" allowfullscreen></iframe>
+        </div>
+        <div class="wg-body">
+          <div class="wg-title-row">
+            <h3 class="wg-title">Tetris</h3>
+            <span class="wg-badge">AI-Assisted</span>
+          </div>
+          <p class="wg-desc">The timeless block-stacking classic — fit the pieces, clear the lines, beat your score. Built with AI assistance and hosted on Netlify.</p>
+          <a href="https://tetrisgameee.netlify.app/" target="_blank" rel="noopener" class="wg-link">&#8599; Open Full Screen</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
 <!-- CONTACT -->
 <section id="contact">
   <div class="container">
@@ -854,9 +1118,9 @@ footer span { color:var(--neon-green); }
       <h2 class="contact-heading">LET'S BUILD<br>SOMETHING GREAT</h2>
       <p class="contact-sub">Open to freelance projects, internships, and game dev opportunities. Let's create something unforgettable.</p>
       <div class="contact-links">
-        <a href="mailto:vibhavsingh2004@gmail.com" class="c-link pri">Get In Touch</a>
-        <a href="https://github.com/vibhavsingh-gamedev" target="_blank" rel="noopener" class="c-link">GitHub</a>
-        <a href="https://www.linkedin.com/in/vibhavsingh004" target="_blank" rel="noopener" class="c-link">LinkedIn</a>
+        <a href="mailto:singhsaab@gamedev.com" class="c-link pri">Get In Touch</a>
+        <a href="https://github.com/yourusername" target="_blank" rel="noopener" class="c-link">GitHub</a>
+        <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener" class="c-link">LinkedIn</a>
       </div>
     </div>
   </div>
@@ -889,7 +1153,18 @@ footer span { color:var(--neon-green); }
     });
   });
 
-  // Active nav highlight
+  // Click-to-play for web game iframes
+  document.querySelectorAll('.wg-overlay').forEach(function(overlay) {
+    overlay.addEventListener('click', function() {
+      var id = overlay.id.replace('ov-', 'if-');
+      var iframe = document.getElementById(id);
+      if (iframe && iframe.dataset.src) {
+        iframe.src = iframe.dataset.src;
+        delete iframe.dataset.src;
+      }
+      overlay.classList.add('hidden');
+    });
+  });
   var navAs = document.querySelectorAll('.nav-links a');
   var secs = document.querySelectorAll('section[id]');
   window.addEventListener('scroll', function () {
