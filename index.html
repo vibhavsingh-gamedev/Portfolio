@@ -553,9 +553,10 @@ footer span { color:var(--neon-green); }
   inset: 0;
   background: rgba(2,4,8,0.52);
   transition: background 0.3s;
+  z-index: 0;
 }
 .wg-overlay:hover::before { background: rgba(2,4,8,0.38); }
-.wg-overlay > * { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
+.wg-play-btn, .wg-overlay-text { position: relative; z-index: 1; }
 }
 .wg-overlay.hidden { opacity: 0; pointer-events: none; }
 .wg-play-btn {
