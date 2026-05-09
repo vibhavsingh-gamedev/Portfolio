@@ -543,15 +543,19 @@ footer span { color:var(--neon-green); }
 .wg-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(2,4,8,0.82);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  cursor: pointer;
-  transition: opacity 0.4s ease;
-  z-index: 3;
+  background-color: rgba(2,4,8,0.55);
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  .wg-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(2,4,8,0.52);
+  transition: background 0.3s;
+}
+.wg-overlay:hover::before { background: rgba(2,4,8,0.38); }
+.wg-overlay > * { position: relative; z-index: 1; }
 }
 .wg-overlay.hidden { opacity: 0; pointer-events: none; }
 .wg-play-btn {
@@ -1028,7 +1032,7 @@ footer span { color:var(--neon-green); }
       <div class="wg-card reveal">
         <div class="corner-acc-y"></div>
         <div class="wg-iframe-wrap">
-          <div class="wg-overlay" id="ov-1">
+          <div class="wg-overlay" id="ov-1" style="background-image:url('images/thumb-gravityorbit.png')">
             <div class="wg-play-btn"><div class="wg-play-icon"></div></div>
             <div class="wg-overlay-text">Click to Play</div>
           </div>
@@ -1048,7 +1052,7 @@ footer span { color:var(--neon-green); }
       <div class="wg-card reveal">
         <div class="corner-acc-y"></div>
         <div class="wg-iframe-wrap">
-          <div class="wg-overlay" id="ov-2">
+          <div class="wg-overlay" id="ov-2" style="background-image:url('images/thumb-breakout.png')">
             <div class="wg-play-btn"><div class="wg-play-icon"></div></div>
             <div class="wg-overlay-text">Click to Play</div>
           </div>
@@ -1068,7 +1072,7 @@ footer span { color:var(--neon-green); }
       <div class="wg-card reveal">
         <div class="corner-acc-y"></div>
         <div class="wg-iframe-wrap">
-          <div class="wg-overlay" id="ov-3">
+          <div class="wg-overlay" id="ov-3" style="background-image:url('images/thumb-neonsnake.png')">
             <div class="wg-play-btn"><div class="wg-play-icon"></div></div>
             <div class="wg-overlay-text">Click to Play</div>
           </div>
@@ -1088,7 +1092,7 @@ footer span { color:var(--neon-green); }
       <div class="wg-card reveal">
         <div class="corner-acc-y"></div>
         <div class="wg-iframe-wrap">
-          <div class="wg-overlay" id="ov-4">
+          <div class="wg-overlay" id="ov-4" style="background-image:url('images/thumb-tetris.png')">
             <div class="wg-play-btn"><div class="wg-play-icon"></div></div>
             <div class="wg-overlay-text">Click to Play</div>
           </div>
@@ -1108,7 +1112,7 @@ footer span { color:var(--neon-green); }
       <div class="wg-card reveal">
         <div class="corner-acc-y"></div>
         <div class="wg-iframe-wrap">
-          <div class="wg-overlay" id="ov-5">
+          <div class="wg-overlay" id="ov-5" style="background-image:url('images/thumb-cyberstrike.png')">
             <div class="wg-play-btn"><div class="wg-play-icon"></div></div>
             <div class="wg-overlay-text">Click to Play</div>
           </div>
@@ -1128,7 +1132,7 @@ footer span { color:var(--neon-green); }
       <div class="wg-card reveal">
         <div class="corner-acc-y"></div>
         <div class="wg-iframe-wrap">
-          <div class="wg-overlay" id="ov-6">
+          <div class="wg-overlay" id="ov-6" style="background-image:url('images/thumb-shadowblade.png')">
             <div class="wg-play-btn"><div class="wg-play-icon"></div></div>
             <div class="wg-overlay-text">Click to Play</div>
           </div>
@@ -1148,7 +1152,7 @@ footer span { color:var(--neon-green); }
       <div class="wg-card reveal">
         <div class="corner-acc-y"></div>
         <div class="wg-iframe-wrap">
-          <div class="wg-overlay" id="ov-7">
+          <div class="wg-overlay" id="ov-7" style="background-image:url('images/thumb-neondrift.png')">
             <div class="wg-play-btn"><div class="wg-play-icon"></div></div>
             <div class="wg-overlay-text">Click to Play</div>
           </div>
@@ -1168,7 +1172,7 @@ footer span { color:var(--neon-green); }
       <div class="wg-card reveal">
         <div class="corner-acc-y"></div>
         <div class="wg-iframe-wrap">
-          <div class="wg-overlay" id="ov-8">
+          <div class="wg-overlay" id="ov-8" style="background-image:url('images/thumb-gridwars.png')">
             <div class="wg-play-btn"><div class="wg-play-icon"></div></div>
             <div class="wg-overlay-text">Click to Play</div>
           </div>
@@ -1181,6 +1185,66 @@ footer span { color:var(--neon-green); }
           </div>
           <p class="wg-desc">Strategic grid-based combat — claim territory, outmaneuver your opponent, and dominate the battlefield one cell at a time. Built with AI assistance and hosted on Netlify.</p>
           <a href="https://grid-wars.netlify.app/" target="_blank" rel="noopener" class="wg-link">↗ Open Full Screen</a>
+        </div>
+      </div>
+
+      <!-- Zenith Archery -->
+      <div class="wg-card reveal">
+        <div class="corner-acc-y"></div>
+        <div class="wg-iframe-wrap">
+          <div class="wg-overlay" id="ov-9" style="background-image:url('images/thumb-zenith.png')">
+            <div class="wg-play-btn"><div class="wg-play-icon"></div></div>
+            <div class="wg-overlay-text">Click to Play</div>
+          </div>
+          <iframe id="if-9" src="about:blank" data-src="https://zenith-archery.netlify.app/" allowfullscreen></iframe>
+        </div>
+        <div class="wg-body">
+          <div class="wg-title-row">
+            <h3 class="wg-title">Zenith Archery: Elite Duel</h3>
+            <span class="wg-badge">AI-Assisted</span>
+          </div>
+          <p class="wg-desc">A precision archery duel — tap, drag, and release to fire. Factor in wind and distance for a perfect shot. Play solo vs bot or go head-to-head with a friend in local multiplayer.</p>
+          <a href="https://zenith-archery.netlify.app/" target="_blank" rel="noopener" class="wg-link">&#8599; Open Full Screen</a>
+        </div>
+      </div>
+ 
+      <!-- Neon Vanguard -->
+      <div class="wg-card reveal">
+        <div class="corner-acc-y"></div>
+        <div class="wg-iframe-wrap">
+          <div class="wg-overlay" id="ov-10" style="background-image:url('images/thumb-vanguard.png')">
+            <div class="wg-play-btn"><div class="wg-play-icon"></div></div>
+            <div class="wg-overlay-text">Click to Play</div>
+          </div>
+          <iframe id="if-10" src="about:blank" data-src="https://vanguard-strikeforce.netlify.app/" allowfullscreen></iframe>
+        </div>
+        <div class="wg-body">
+          <div class="wg-title-row">
+            <h3 class="wg-title">Neon Vanguard: Strike Force</h3>
+            <span class="wg-badge">AI-Assisted</span>
+          </div>
+          <p class="wg-desc">Elite neon combat — take on the Striker-Bot in single player or challenge a friend in local duel mode. Move, aim, and fire your way through escalating levels of neon warfare.</p>
+          <a href="https://vanguard-strikeforce.netlify.app/" target="_blank" rel="noopener" class="wg-link">&#8599; Open Full Screen</a>
+        </div>
+      </div>
+ 
+      <!-- Aura Stack -->
+      <div class="wg-card reveal">
+        <div class="corner-acc-y"></div>
+        <div class="wg-iframe-wrap">
+          <div class="wg-overlay" id="ov-11" style="background-image:url('images/thumb-aurastack.png')">
+            <div class="wg-play-btn"><div class="wg-play-icon"></div></div>
+            <div class="wg-overlay-text">Click to Play</div>
+          </div>
+          <iframe id="if-11" src="about:blank" data-src="https://aura-stack.netlify.app/" allowfullscreen></iframe>
+        </div>
+        <div class="wg-body">
+          <div class="wg-title-row">
+            <h3 class="wg-title">Aura Stack</h3>
+            <span class="wg-badge">AI-Assisted &nbsp;·&nbsp; PC &amp; Mobile</span>
+          </div>
+          <p class="wg-desc">A sleek hypercasual stacking game built in pure vanilla JS &amp; Canvas — zero dependencies, single HTML file. Time your tap in the green zone, chain combos, and trigger Fever Mode (5+ perfects = 3x score + slow-mo). Features ghost replay of your best run, a social leaderboard, daily challenges, seasonal visuals auto-matched to real-world months, and a cosmetic shop. Procedural audio, haptic feedback, and 60FPS locked — fully optimized for both PC and mobile.</p>
+          <a href="https://aura-stack.netlify.app/" target="_blank" rel="noopener" class="wg-link">&#8599; Open Full Screen</a>
         </div>
       </div>
 
