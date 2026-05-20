@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vibhav Singh — Game Developer</title>
+<title>SinghSaab — Game Developer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -547,17 +547,28 @@ footer span { color:var(--neon-green); }
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
-  .wg-overlay::before {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  cursor: pointer;
+  transition: opacity 0.4s ease;
+  z-index: 3;
+}
+/* dark tint layer on top of thumbnail */
+.wg-overlay::after {
   content: '';
   position: absolute;
   inset: 0;
   background: rgba(2,4,8,0.52);
   transition: background 0.3s;
   z-index: 0;
+  pointer-events: none;
 }
-.wg-overlay:hover::before { background: rgba(2,4,8,0.38); }
-.wg-play-btn, .wg-overlay-text { position: relative; z-index: 1; }
-}
+.wg-overlay:hover::after { background: rgba(2,4,8,0.38); }
+.wg-play-btn { z-index: 1; }
+.wg-overlay-text { z-index: 1; }
 .wg-overlay.hidden { opacity: 0; pointer-events: none; }
 .wg-play-btn {
   width: 64px; height: 64px;
@@ -668,7 +679,7 @@ footer span { color:var(--neon-green); }
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <div class="nav-logo">VIBHAV SINGH</div>
+    <div class="nav-logo">SINGHSAAB</div>
     <ul class="nav-links">
       <li><a href="#skills">Skills</a></li>
       <li><a href="#projects">Projects</a></li>
@@ -683,7 +694,7 @@ footer span { color:var(--neon-green); }
   <div class="hero-glow"></div>
   <div class="container">
     <div class="hero-badge">UNITY &amp; C# &nbsp;&middot;&nbsp; GAME DEVELOPER &nbsp;&middot;&nbsp; INDIA</div>
-    <h1 class="hero-name" data-text="VIBHAV SINGH">VIBHAV SINGH<span class="cursor"></span></h1>
+    <h1 class="hero-name" data-text="SINGHSAAB">SINGHSAAB<span class="cursor"></span></h1>
     <p class="hero-title">Building <span>worlds</span> with code</p>
     <p class="hero-desc">Enthusiastic game developer crafting engaging 2D &amp; 3D experiences in Unity. From hyper-casual to full platformers &mdash; I focus on gameplay feel, clean architecture, and polish.</p>
     <div class="hero-cta">
@@ -1108,7 +1119,7 @@ footer span { color:var(--neon-green); }
           <a href="https://tetrisgameee.netlify.app/" target="_blank" rel="noopener" class="wg-link">&#8599; Open Full Screen</a>
         </div>
       </div>
-      
+
       <!-- Cyber Strike -->
       <div class="wg-card reveal">
         <div class="corner-acc-y"></div>
@@ -1125,7 +1136,7 @@ footer span { color:var(--neon-green); }
             <span class="wg-badge">AI-Assisted</span>
           </div>
           <p class="wg-desc">A fast-paced cyber combat game — slash through enemies with precision blade strikes in a neon-lit battlefield. Built with AI assistance and hosted on Netlify.</p>
-          <a href="https://cyber-strikee.netlify.app/" target="_blank" rel="noopener" class="wg-link">↗ Open Full Screen</a>
+          <a href="https://cyber-strikee.netlify.app/" target="_blank" rel="noopener" class="wg-link">&#8599; Open Full Screen</a>
         </div>
       </div>
 
@@ -1145,7 +1156,7 @@ footer span { color:var(--neon-green); }
             <span class="wg-badge">AI-Assisted</span>
           </div>
           <p class="wg-desc">Stealth meets action — wield the shadow blade, move through darkness, and strike enemies before they see you coming. Built with AI assistance and hosted on Netlify.</p>
-          <a href="https://shadow-blade.netlify.app/" target="_blank" rel="noopener" class="wg-link">↗ Open Full Screen</a>
+          <a href="https://shadow-blade.netlify.app/" target="_blank" rel="noopener" class="wg-link">&#8599; Open Full Screen</a>
         </div>
       </div>
 
@@ -1165,7 +1176,7 @@ footer span { color:var(--neon-green); }
             <span class="wg-badge">AI-Assisted</span>
           </div>
           <p class="wg-desc">High-speed neon racing — drift through glowing tracks, dodge obstacles, and chase the perfect lap. Built with AI assistance and hosted on Netlify.</p>
-          <a href="https://neon-driftt.netlify.app/" target="_blank" rel="noopener" class="wg-link">↗ Open Full Screen</a>
+          <a href="https://neon-driftt.netlify.app/" target="_blank" rel="noopener" class="wg-link">&#8599; Open Full Screen</a>
         </div>
       </div>
 
@@ -1185,7 +1196,7 @@ footer span { color:var(--neon-green); }
             <span class="wg-badge">AI-Assisted</span>
           </div>
           <p class="wg-desc">Strategic grid-based combat — claim territory, outmaneuver your opponent, and dominate the battlefield one cell at a time. Built with AI assistance and hosted on Netlify.</p>
-          <a href="https://grid-wars.netlify.app/" target="_blank" rel="noopener" class="wg-link">↗ Open Full Screen</a>
+          <a href="https://grid-wars.netlify.app/" target="_blank" rel="noopener" class="wg-link">&#8599; Open Full Screen</a>
         </div>
       </div>
 
@@ -1208,7 +1219,7 @@ footer span { color:var(--neon-green); }
           <a href="https://zenith-archery.netlify.app/" target="_blank" rel="noopener" class="wg-link">&#8599; Open Full Screen</a>
         </div>
       </div>
- 
+
       <!-- Neon Vanguard -->
       <div class="wg-card reveal">
         <div class="corner-acc-y"></div>
@@ -1228,7 +1239,7 @@ footer span { color:var(--neon-green); }
           <a href="https://vanguard-strikeforce.netlify.app/" target="_blank" rel="noopener" class="wg-link">&#8599; Open Full Screen</a>
         </div>
       </div>
- 
+
       <!-- Aura Stack -->
       <div class="wg-card reveal">
         <div class="corner-acc-y"></div>
@@ -1263,9 +1274,9 @@ footer span { color:var(--neon-green); }
       <h2 class="contact-heading">LET'S BUILD<br>SOMETHING GREAT</h2>
       <p class="contact-sub">Open to freelance projects, internships, and game dev opportunities. Let's create something unforgettable.</p>
       <div class="contact-links">
-        <a href="mailto:vibhavsingh2004@gmail.com" class="c-link pri">Get In Touch</a>
-        <a href="https://github.com/vibhavsingh-gamedev" target="_blank" rel="noopener" class="c-link">GitHub</a>
-        <a href="https://www.linkedin.com/in/vibhavsingh004" target="_blank" rel="noopener" class="c-link">LinkedIn</a>
+        <a href="mailto:singhsaab@gamedev.com" class="c-link pri">Get In Touch</a>
+        <a href="https://github.com/yourusername" target="_blank" rel="noopener" class="c-link">GitHub</a>
+        <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener" class="c-link">LinkedIn</a>
       </div>
     </div>
   </div>
