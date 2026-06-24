@@ -785,6 +785,127 @@ footer span { color:var(--neon-green); }
     </div>
     <div class="projects-grid rg">
 
+      <!-- Card Kingdom Solitaire -->
+      <div class="project-card reveal">
+        <div class="corner-acc"></div>
+        <div class="project-thumb">
+          <img src="images/cardkingdom.png" alt="Card Kingdom Solitaire"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="thumb-ph">CARD KINGDOM</div>
+          <div class="project-badge">2D &middot; Card Game</div>
+        </div>
+        <div class="project-body">
+          <div class="proj-title-row">
+            <h3 class="proj-title">Card Kingdom Solitaire</h3>
+            <span class="proj-engine">Unity 6 / C#</span>
+          </div>
+          <p class="proj-desc">A polished single-player 2D card game with strategic gameplay, premium UI, and complete game flow from menu to victory.</p>
+          <ul class="proj-feats">
+            <li>52-card deck with Fisher-Yates shuffle and rule-based validation (same suit / higher rank)</li>
+            <li>Event-driven architecture with Singleton managers for clean separation of concerns</li>
+            <li>Persistent high-score system using PlayerPrefs across sessions</li>
+            <li>Smooth card hover animations, button feedback, and transition effects</li>
+            <li>Background music and SFX with cross-scene audio persistence</li>
+            <li>Four complete screens: Main Menu, Gameplay, Victory, and Game Over</li>
+          </ul>
+          <div class="tech-stack">
+            <span class="tech-tag">Unity 6</span><span class="tech-tag">C#</span>
+            <span class="tech-tag">2D</span><span class="tech-tag">OOP</span>
+            <span class="tech-tag">UI/UX</span><span class="tech-tag">Event-Driven</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fruit Ninja -->
+      <div class="project-card reveal">
+        <div class="corner-acc"></div>
+        <div class="project-thumb">
+          <video src="videos/fruitninja.mp4" muted loop playsinline preload="none"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"></video>
+          <div class="thumb-ph">FRUIT NINJA</div>
+          <div class="vid-overlay"><div class="big-play"></div><span class="hover-hint">Hover to play</span></div>
+          <div class="project-badge">2D &middot; Hyper-Casual</div>
+        </div>
+        <div class="project-body">
+          <div class="proj-title-row">
+            <h3 class="proj-title">Fruit Ninja</h3>
+            <span class="proj-engine">Unity 6 / C#</span>
+          </div>
+          <p class="proj-desc">A hypercasual fruit-slicing game where players slash incoming fruits with a blade trail while avoiding bombs &mdash; built to sharpen core Unity skills.</p>
+          <ul class="proj-feats">
+            <li>Fruit spawning system with 5 unique fruit types flying onto screen</li>
+            <li>Blade trail mechanic &mdash; player slices fruits by swiping across them</li>
+            <li>Bomb logic: touching bomb triggers fade screen, 1-sec delay, then Game Over</li>
+            <li>Particle system on fruit slice for satisfying visual feedback</li>
+            <li>Score system that increments with every successful fruit cut</li>
+            <li>Main Menu (Play &amp; Quit) and Game Over panel with Restart &amp; Main Menu buttons</li>
+          </ul>
+          <div class="tech-stack">
+            <span class="tech-tag">Unity 6</span><span class="tech-tag">C#</span>
+            <span class="tech-tag">2D</span><span class="tech-tag">Particles</span>
+            <span class="tech-tag">Hyper-Casual</span><span class="tech-tag">UI/UX</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Helix Jump -->
+      <div class="project-card reveal">
+        <div class="corner-acc"></div>
+        <div class="project-thumb">
+          <video src="videos/helixjump.mp4" muted loop playsinline preload="none"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"></video>
+          <div class="thumb-ph">HELIX JUMP</div>
+          <div class="vid-overlay"><div class="big-play"></div><span class="hover-hint">Hover to play</span></div>
+          <div class="project-badge">3D &middot; Hyper-Casual</div>
+        </div>
+        <div class="project-body">
+          <div class="proj-title-row">
+            <h3 class="proj-title">Helix Jump</h3>
+            <span class="proj-engine">Unity 6 / C#</span>
+          </div>
+          <p class="proj-desc">A full 3D Helix Jump clone with smooth ball physics, high score persistence, audio, and level progression.</p>
+          <ul class="proj-feats">
+            <li>Realistic ball physics with touch/mouse controls</li>
+            <li>Splash destruction effect via object pooling</li>
+            <li>High score system with persistent data storage</li>
+            <li>3 levels with dynamic colors &amp; audio system</li>
+          </ul>
+          <div class="tech-stack">
+            <span class="tech-tag">Unity 6</span><span class="tech-tag">C#</span>
+            <span class="tech-tag">3D</span><span class="tech-tag">Optimization</span><span class="tech-tag">Audio</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CarDash -->
+      <div class="project-card reveal">
+        <div class="corner-acc"></div>
+        <div class="project-thumb">
+          <video src="videos/cardash.mp4" muted loop playsinline preload="none"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"></video>
+          <div class="thumb-ph">CARDASH</div>
+          <div class="vid-overlay"><div class="big-play"></div><span class="hover-hint">Hover to play</span></div>
+          <div class="project-badge">Mobile &middot; Android</div>
+        </div>
+        <div class="project-body">
+          <div class="proj-title-row">
+            <h3 class="proj-title">CarDash</h3>
+            <span class="proj-engine">Unity 6 / C#</span>
+          </div>
+          <p class="proj-desc">A hyper-casual endless runner designed for Android &mdash; smooth controls, animated Game Over UI, and persistent high scores.</p>
+          <ul class="proj-feats">
+            <li>Infinite road with collision-based game over detection</li>
+            <li>Persistent high score saving across sessions</li>
+            <li>Animated Game Over UI with bounce &amp; scale effects</li>
+            <li>Canvas Scaler optimized for 1080x1920 mobile resolution</li>
+          </ul>
+          <div class="tech-stack">
+            <span class="tech-tag">Unity 6</span><span class="tech-tag">C#</span>
+            <span class="tech-tag">Mobile</span><span class="tech-tag">Android</span><span class="tech-tag">UI/UX</span>
+          </div>
+        </div>
+      </div>
+
       <!-- 2D Platformer -->
       <div class="project-card reveal">
         <div class="corner-acc"></div>
@@ -930,95 +1051,6 @@ footer span { color:var(--neon-green); }
         </div>
       </div>
 
-      <!-- Helix Jump -->
-      <div class="project-card reveal">
-        <div class="corner-acc"></div>
-        <div class="project-thumb">
-          <video src="videos/helixjump.mp4" muted loop playsinline preload="none"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"></video>
-          <div class="thumb-ph">HELIX JUMP</div>
-          <div class="vid-overlay"><div class="big-play"></div><span class="hover-hint">Hover to play</span></div>
-          <div class="project-badge">3D &middot; Hyper-Casual</div>
-        </div>
-        <div class="project-body">
-          <div class="proj-title-row">
-            <h3 class="proj-title">Helix Jump</h3>
-            <span class="proj-engine">Unity 6 / C#</span>
-          </div>
-          <p class="proj-desc">A full 3D Helix Jump clone with smooth ball physics, high score persistence, audio, and level progression.</p>
-          <ul class="proj-feats">
-            <li>Realistic ball physics with touch/mouse controls</li>
-            <li>Splash destruction effect via object pooling</li>
-            <li>High score system with persistent data storage</li>
-            <li>3 levels with dynamic colors &amp; audio system</li>
-          </ul>
-          <div class="tech-stack">
-            <span class="tech-tag">Unity 6</span><span class="tech-tag">C#</span>
-            <span class="tech-tag">3D</span><span class="tech-tag">Optimization</span><span class="tech-tag">Audio</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- CarDash -->
-      <div class="project-card reveal">
-        <div class="corner-acc"></div>
-        <div class="project-thumb">
-          <video src="videos/cardash.mp4" muted loop playsinline preload="none"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"></video>
-          <div class="thumb-ph">CARDASH</div>
-          <div class="vid-overlay"><div class="big-play"></div><span class="hover-hint">Hover to play</span></div>
-          <div class="project-badge">Mobile &middot; Android</div>
-        </div>
-        <div class="project-body">
-          <div class="proj-title-row">
-            <h3 class="proj-title">CarDash</h3>
-            <span class="proj-engine">Unity 6 / C#</span>
-          </div>
-          <p class="proj-desc">A hyper-casual endless runner designed for Android &mdash; smooth controls, animated Game Over UI, and persistent high scores.</p>
-          <ul class="proj-feats">
-            <li>Infinite road with collision-based game over detection</li>
-            <li>Persistent high score saving across sessions</li>
-            <li>Animated Game Over UI with bounce &amp; scale effects</li>
-            <li>Canvas Scaler optimized for 1080x1920 mobile resolution</li>
-          </ul>
-          <div class="tech-stack">
-            <span class="tech-tag">Unity 6</span><span class="tech-tag">C#</span>
-            <span class="tech-tag">Mobile</span><span class="tech-tag">Android</span><span class="tech-tag">UI/UX</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Fruit Ninja -->
-      <div class="project-card reveal">
-        <div class="corner-acc"></div>
-        <div class="project-thumb">
-          <video src="videos/fruitninja.mp4" muted loop playsinline preload="none"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"></video>
-          <div class="thumb-ph">FRUIT NINJA</div>
-          <div class="vid-overlay"><div class="big-play"></div><span class="hover-hint">Hover to play</span></div>
-          <div class="project-badge">2D &middot; Hyper-Casual</div>
-        </div>
-        <div class="project-body">
-          <div class="proj-title-row">
-            <h3 class="proj-title">Fruit Ninja</h3>
-            <span class="proj-engine">Unity 6 / C#</span>
-          </div>
-          <p class="proj-desc">A hypercasual fruit-slicing game where players slash incoming fruits with a blade trail while avoiding bombs &mdash; built to sharpen core Unity skills.</p>
-          <ul class="proj-feats">
-            <li>Fruit spawning system with 5 unique fruit types flying onto screen</li>
-            <li>Blade trail mechanic &mdash; player slices fruits by swiping across them</li>
-            <li>Bomb logic: touching bomb triggers fade screen, 1-sec delay, then Game Over</li>
-            <li>Particle system on fruit slice for satisfying visual feedback</li>
-            <li>Score system that increments with every successful fruit cut</li>
-            <li>Main Menu (Play &amp; Quit) and Game Over panel with Restart &amp; Main Menu buttons</li>
-          </ul>
-          <div class="tech-stack">
-            <span class="tech-tag">Unity 6</span><span class="tech-tag">C#</span>
-            <span class="tech-tag">2D</span><span class="tech-tag">Particles</span>
-            <span class="tech-tag">Hyper-Casual</span><span class="tech-tag">UI/UX</span>
-          </div>
-        </div>
-      </div>
 
     </div>
   </div>
